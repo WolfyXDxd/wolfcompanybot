@@ -9,11 +9,14 @@ from collections import deque
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
-cookies_content = os.getenv("COOKIES")
+cookies_content = os.getenv("COOKIES_CONTENT")
 
 if cookies_content:
     with open("cookies.txt", "w", encoding="utf-8") as f:
         f.write(cookies_content)
+    print("✅ Archivo cookies.txt creado correctamente en Render.")
+else:
+    print("⚠️ No se encontró la variable COOKIES_CONTENT.")
 
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 intents = discord.Intents.default()
