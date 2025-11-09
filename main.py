@@ -35,7 +35,8 @@ ytdl_format_options = {
     'default_search': 'ytsearch',
     'source_address': '0.0.0.0',
     'geo_bypass': True,
-    'cachedir': False
+    'cachedir': False,
+    'cookies': 'cookies.txt'
 }
 
 # Opciones mejoradas de FFmpeg con reconexión
