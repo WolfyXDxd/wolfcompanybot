@@ -48,8 +48,6 @@ youtube_dl.utils.bug_reports_message = lambda **kwargs: ''
 
 ytdl_format_options = {
     'format': 'bestaudio/best',
-    'extractaudio': True,
-    'audioformat': 'mp3',
     'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
     'restrictfilenames': True,
     'noplaylist': True,
@@ -60,22 +58,14 @@ ytdl_format_options = {
     'no_warnings': True,
     'default_search': 'ytsearch',
     'source_address': '0.0.0.0',
-    'geo_bypass': True,
-    'cachedir': False,
-      'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
-    # Opciones anti-detección
+    'force_generic_extractor': False,
+    'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
+    # Cliente Android para evitar restricciones
     'extractor_args': {
         'youtube': {
-            'player_client': ['android', 'web'],
-            'player_skip': ['webpage', 'configs'],
+            'player_client': ['android'],
+            'skip': ['hls', 'dash', 'translated_subs']
         }
-    },
-    'http_headers': {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-us,en;q=0.5',
-        'Sec-Fetch-Mode': 'navigate',
-   
     }
 }
 
