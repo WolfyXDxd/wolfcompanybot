@@ -13,14 +13,27 @@ token = os.getenv('DISCORD_TOKEN')
 cookies = os.getenv("COOKIES")
 
 if cookies:
-    # Si Render almacenó los saltos como "\n", los convertimos en saltos reales
-    cookies = cookies.replace("\\n", "\n")
-    with open("cookies.txt", "w", encoding="utf-8") as f:
-        f.write(cookies)
-    print("✅ Archivo cookies.txt creado correctamente")
+    # Primero intentamos con replace simple
+    cookies_content = cookies.replace("\\n", "\n")
+    
+    # Si aún tiene \\n literales, intentamos otra vez
+    if "\\n" in cookies_content:
+        cookies_content = cookies_content.replace("\\\\n", "\n")
+    
+    try:
+        with open("cookies.txt", "w", encoding="utf-8") as f:
+            f.write(cookies_content)
+        print("✅ Archivo cookies.txt creado correctamente")
+        
+        # Verificar que se creó correctamente
+        with open("cookies.txt", "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            print(f"📝 Cookies.txt tiene {len(lines)} líneas")
+            
+    except Exception as e:
+        print(f"❌ Error al crear cookies.txt: {e}")
 else:
     print("⚠️ No se encontró la variable de entorno COOKIES")
-
 
 # Configuración del logging
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
@@ -49,7 +62,21 @@ ytdl_format_options = {
     'source_address': '0.0.0.0',
     'geo_bypass': True,
     'cachedir': False,
-    'cookiefile': 'cookies.txt'
+      'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
+    # Opciones anti-detección
+    'extractor_args': {
+        'youtube': {
+            'player_client': ['android', 'web'],
+            'player_skip': ['webpage', 'configs'],
+        }
+    },
+    'http_headers': {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-us,en;q=0.5',
+        'Sec-Fetch-Mode': 'navigate',
+   
+    }
 }
 
 # Opciones mejoradas de FFmpeg con reconexión
