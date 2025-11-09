@@ -9,6 +9,11 @@ from collections import deque
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
+cookies_content = os.getenv("COOKIES")
+
+if cookies_content:
+    with open("cookies.txt", "w", encoding="utf-8") as f:
+        f.write(cookies_content)
 
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 intents = discord.Intents.default()
