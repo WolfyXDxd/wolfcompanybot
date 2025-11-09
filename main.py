@@ -48,7 +48,7 @@ ytdl_format_options = {
     'source_address': '0.0.0.0',
     'geo_bypass': True,
     'cachedir': False,
-    'cookies': 'cookies.txt'
+    'cookiefile': 'cookies.txt'
 }
 
 # Opciones mejoradas de FFmpeg con reconexión
