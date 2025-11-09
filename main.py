@@ -12,9 +12,16 @@ token = os.getenv('DISCORD_TOKEN')
 cookies = os.getenv("COOKIES")
 
 if cookies:
+    # Si Render almacenó los saltos como "\n", los convertimos en saltos reales
+    cookies = cookies.replace("\\n", "\n")
     with open("cookies.txt", "w", encoding="utf-8") as f:
         f.write(cookies)
+    print("✅ Archivo cookies.txt creado correctamente")
+else:
+    print("⚠️ No se encontró la variable de entorno COOKIES")
 
+
+# Configuración del logging
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 intents = discord.Intents.default()
 intents.message_content = True
