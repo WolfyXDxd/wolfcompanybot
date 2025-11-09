@@ -6,6 +6,7 @@ import os
 import asyncio
 import yt_dlp as youtube_dl
 from collections import deque
+import webserver
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
@@ -514,4 +515,5 @@ async def on_command_error(ctx, error):
     else:
         print(f"Error no manejado: {error}")
 
+webserver.keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
