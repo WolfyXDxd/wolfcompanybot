@@ -69,11 +69,14 @@ comandos = {
 
 @bot.event
 async def on_ready():
-    # Conectar a Lavalink
-    nodes = [wavelink.Node(uri='https://lavalink.jirayu.net', password='youshallnotpass'),
-        wavelink.Node(uri='https://lavalink.lexnet.cc:443', password='lexn3tl@val!nk'),
-        wavelink.Node(uri='https://lavalink-repl.mrflexi.repl.co', password='youshallnotpass')]
-    await wavelink.Pool.connect(nodes=nodes, client=bot)
+    # Nodo más estable y confiable
+    nodes = [wavelink.Node(uri='https://lavalink.jirayu.net:443', password='youshallnotpass')]
+    
+    try:
+        await wavelink.Pool.connect(nodes=nodes, client=bot)
+        print(f"✅ Conectado a Lavalink: lavalink.jirayu.net")
+    except Exception as e:
+        print(f"❌ Error conectando a Lavalink: {e}")
     
     await bot.change_presence(
         status=discord.Status.online,  
